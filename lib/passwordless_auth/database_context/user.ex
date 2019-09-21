@@ -4,10 +4,13 @@ defmodule PasswordlessAuth.DatabaseContext.User do
   """
   use PasswordlessAuth, :model
 
+  alias PasswordlessAuth.DatabaseContext.UserAuth
+
   @type t :: %__MODULE__{
     id: String.t(),
     email: String.t(),
     name: String.t(),
+    user_auth: UserAuth.t() | nil,
     inserted_at: NaiveDateTime.t(),
     updated_at: NaiveDateTime.t()
   }
@@ -15,6 +18,8 @@ defmodule PasswordlessAuth.DatabaseContext.User do
   schema "users" do
     field :email, :string
     field :name, :string
+
+    has_one :user_auth, UserAuth, on_delete: :delete_all
 
     timestamps()
   end
