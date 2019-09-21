@@ -9,6 +9,9 @@ use Mix.Config
 config :passwordless_auth,
   ecto_repos: [PasswordlessAuth.Repo]
 
+config :passwordless_auth, PasswordlessAuth.Repo,
+  migration_primary_key: [id: :uuid, type: :binary_id]
+
 # Configures the endpoint
 config :passwordless_auth, PasswordlessAuthWeb.Endpoint,
   url: [host: "localhost"],
