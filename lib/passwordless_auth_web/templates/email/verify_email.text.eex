@@ -1,0 +1,8 @@
+<%= dgettext("email", "Hello") %> <%= @username %>
+
+<%= dgettext("email", "You requested to change your email.") %>
+
+
+<%= dgettext("email", "Please click on the following link to verify your new email.") %>
+
+<%= @link %>

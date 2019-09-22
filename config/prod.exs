@@ -66,6 +66,9 @@ config :logger, level: :info
 # Note you can't rely on `System.get_env/1` when using releases.
 # See the releases documentation accordingly.
 
+config :joken,
+  default_signer: System.get_env("DEFAULT_SIGNER")
+
 config :passwordless_auth, PasswordlessAuthWeb.Mailer,
   adapter: Swoosh.Adapters.Mailgun,
   domain: System.get_env("MAILGUN_DOMAIN"),

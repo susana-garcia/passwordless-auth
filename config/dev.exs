@@ -59,6 +59,9 @@ config :passwordless_auth, PasswordlessAuth.Repo,
   hostname: "localhost",
   pool_size: 10
 
+config :joken,
+  default_signer: "Mflr/inJj5YSnK5s1QH7L8RcUIY7SRxI0XpRxZsugl6XluLT6hldOgX6Vu0u3C8i"
+
 config :passwordless_auth, PasswordlessAuthWeb.Mailer,
   # adapter: Swoosh.Adapters.Mailgun,
   adapter: Swoosh.Adapters.Local,

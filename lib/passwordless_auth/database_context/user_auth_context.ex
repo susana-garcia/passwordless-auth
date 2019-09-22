@@ -122,4 +122,12 @@ defmodule PasswordlessAuth.DatabaseContext.UserAuthContext do
     |> UserAuth.changeset(attrs)
     |> Repo.insert_or_update()
   end
+
+  def verify_token(token, email) do
+    UserAuth
+    |> UserAuth.verify_token(token, email)
+    |> Repo.all()
+    |> List.first()
+    |> Repo.preload(:user)
+  end
 end

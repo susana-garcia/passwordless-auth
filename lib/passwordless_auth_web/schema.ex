@@ -31,6 +31,31 @@ defmodule PasswordlessAuthWeb.Schema do
     field(:email, non_null(:string))
   end
 
+  @desc """
+  User object
+  """
+  object :user do
+    field(:email, non_null(:string))
+    field(:name, non_null(:string))
+    field(:id, non_null(:uuid))
+  end
+
+  @desc """
+  Confim auth object
+  """
+  object :confirm_auth do
+    field(:auth_token, non_null(:string))
+    field(:user, non_null(:user))
+  end
+
+  @desc """
+  Confirm auth input object
+  """
+  input_object :confirm_auth_input do
+    field(:email, non_null(:string))
+    field(:token, non_null(:string))
+  end
+
   mutation do
     @desc """
     Sign up
@@ -39,6 +64,15 @@ defmodule PasswordlessAuthWeb.Schema do
       arg(:email, non_null(:string))
 
       resolve(&AuthResolver.sign_up/3)
+    end
+
+    @desc """
+    Confim auth
+    """
+    field :confirm_auth, :confirm_auth do
+      arg(:input, non_null(:confirm_auth_input))
+
+      resolve(&AuthResolver.confim/3)
     end
   end
 end

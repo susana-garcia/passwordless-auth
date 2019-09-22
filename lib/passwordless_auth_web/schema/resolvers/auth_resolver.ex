@@ -3,9 +3,12 @@ defmodule PasswordlessAuthWeb.Schema.Resolvers.AuthResolver do
   Resolver for Sign Up flow
   """
 
+  alias PasswordlessAuth.DatabaseContext.User
+  alias PasswordlessAuth.DatabaseContext.UserAuth
   alias PasswordlessAuth.DatabaseContext.UserAuthContext
   alias PasswordlessAuth.DatabaseContext.UserContext
   alias PasswordlessAuthWeb.Mailer
+  alias PasswordlessAuthWeb.Plug.JwtAuthToken
 
   require Logger
 
@@ -24,6 +27,19 @@ defmodule PasswordlessAuthWeb.Schema.Resolvers.AuthResolver do
 
       _ ->
         {:error, :server_error}
+    end
+  end
+
+  def confim(_, %{input: %{token: token, email: email}}, _resolution) do
+    case UserAuthContext.verify_token(token, email) do
+      %UserAuth{user: %User{} = user} = auth ->
+        UserAuthContext.delete_user_auth(auth)
+
+        {:ok, jwt_token, _claims} = JwtAuthToken.generate_and_sign(%{"user_id" => user.id})
+        {:ok, %{auth_token: jwt_token, user: user}}
+
+      _ ->
+        {:error, :verification_failed}
     end
   end
 

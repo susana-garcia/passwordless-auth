@@ -28,4 +28,21 @@ defmodule PasswordlessAuth.DatabaseContext.UserAuth do
     |> validate_required([:user_id])
     |> unique_constraint(:user_id)
   end
+
+  def verify_token(queryable \\ __MODULE__, token, email) do
+    valid_date =
+      NaiveDateTime.add(NaiveDateTime.utc_now(), -max_age_auth_token_in_seconds(), :second)
+
+    from(
+      q in queryable,
+      join: u in User,
+      on: u.id == q.user_id,
+      where: q.id == ^token and ilike(u.email, ^email) and q.inserted_at >= ^valid_date
+    )
+  end
+
+  defp max_age_auth_token_in_seconds,
+  do:
+    :passwordless_auth
+    |> Application.fetch_env!(:max_age_auth_token_in_seconds)
 end
