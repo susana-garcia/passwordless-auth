@@ -30,6 +30,16 @@ defmodule PasswordlessAuthWeb.Schema.Resolvers.AuthResolver do
     end
   end
 
+  def login(_, %{email: email} = params, _resolution) do
+    case UserContext.get_user_by_email(email) do
+      %User{} = user ->
+        create_user_auth_and_send_link(user, params)
+
+      _ ->
+        {:error, :not_found}
+    end
+  end
+
   def confim(_, %{input: %{token: token, email: email}}, _resolution) do
     case UserAuthContext.verify_token(token, email) do
       %UserAuth{user: %User{} = user} = auth ->

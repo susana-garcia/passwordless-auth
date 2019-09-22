@@ -38,6 +38,27 @@ defmodule PasswordlessAuth.DatabaseContext.UserContext do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets user by email.
+
+  nil if the User does not exist.
+
+  ## Examples
+
+      iex> get_user_by_email(test@gmail.com)
+      %User{}
+
+      iex> get_user_by_email(test@gmail.com)
+      nil
+
+  """
+
+  def get_user_by_email(email) do
+    User
+    |> User.get_by_email(email)
+    |> Repo.one()
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples

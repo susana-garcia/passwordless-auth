@@ -67,6 +67,15 @@ defmodule PasswordlessAuthWeb.Schema do
     end
 
     @desc """
+    Login
+    """
+    field :login, :request_auth do
+      arg(:email, non_null(:string))
+
+      resolve(&AuthResolver.login/3)
+    end
+
+    @desc """
     Confim auth
     """
     field :confirm_auth, :confirm_auth do

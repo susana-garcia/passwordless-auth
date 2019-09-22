@@ -78,4 +78,12 @@ defmodule PasswordlessAuth.DatabaseContext.User do
         put_change(changeset, :name, name)
     end
   end
+
+  def get_by_email(queryable \\ __MODULE__, email) do
+    from(
+      q in queryable,
+      where: ilike(q.email, ^email),
+      limit: 1
+    )
+  end
 end
