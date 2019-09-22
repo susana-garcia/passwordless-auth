@@ -101,4 +101,25 @@ defmodule PasswordlessAuth.DatabaseContext.UserAuthContext do
   def change_user_auth(%UserAuth{} = user_auth) do
     UserAuth.changeset(user_auth, %{})
   end
+
+  def get_user_auth_by_user_id(user_id), do: Repo.get_by(UserAuth, user_id: user_id)
+
+  def upsert_user_auth(attrs \\ %{})
+
+  def upsert_user_auth(%{user_id: user_id, payload: _payload} = attrs) do
+    user_id
+    |> get_user_auth_by_user_id()
+    |> case do
+      nil -> %UserAuth{}
+      user_auth -> user_auth
+    end
+    |> UserAuth.changeset(attrs)
+    |> Repo.insert_or_update()
+  end
+
+  def upsert_user_auth(attrs) do
+    %UserAuth{}
+    |> UserAuth.changeset(attrs)
+    |> Repo.insert_or_update()
+  end
 end

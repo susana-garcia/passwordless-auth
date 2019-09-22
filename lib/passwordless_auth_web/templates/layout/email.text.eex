@@ -1,0 +1,5 @@
+<%= render @view_module, @view_template, assigns %>
+
+<%= gettext("Your app") %>
+
+https://www.yourapp.com

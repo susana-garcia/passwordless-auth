@@ -4,8 +4,6 @@ defmodule PasswordlessAuth.DatabaseContext.UserAuthContextTest do
 
   alias PasswordlessAuth.DatabaseContext.UserAuthContext
 
-  import PasswordlessAuth.Fixtures
-
   describe "user_auth" do
     alias PasswordlessAuth.DatabaseContext.UserAuth
 

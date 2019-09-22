@@ -1,0 +1,8 @@
+<%= gettext("Hello") %> <%= @username %>
+
+<%= gettext("You requested a login verification link.") %>
+
+
+<%= gettext("Please click on the following link to verify yourself.") %>
+
+<%= @login_link %>

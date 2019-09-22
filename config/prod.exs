@@ -65,3 +65,9 @@ config :logger, level: :info
 #
 # Note you can't rely on `System.get_env/1` when using releases.
 # See the releases documentation accordingly.
+
+config :passwordless_auth, PasswordlessAuthWeb.Mailer,
+  adapter: Swoosh.Adapters.Mailgun,
+  domain: System.get_env("MAILGUN_DOMAIN"),
+  api_key: System.get_env("MAILGUN_API_KEY"),
+  from_address: {"passwordless_auth", "hello@passwordless-auth.com"}

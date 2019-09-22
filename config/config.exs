@@ -7,7 +7,9 @@ use Mix.Config
 
 # General application configuration
 config :passwordless_auth,
-  ecto_repos: [PasswordlessAuth.Repo]
+  ecto_repos: [PasswordlessAuth.Repo],
+  default_url: System.get_env("DEFAULT_URL") || "http://localhost:8081",
+  app_ui_url: System.get_env("APP_UI_URL") || "http://localhost:3000"
 
 config :passwordless_auth, PasswordlessAuth.Repo,
   migration_primary_key: [id: :uuid, type: :binary_id]

@@ -16,3 +16,10 @@ config :passwordless_auth, PasswordlessAuth.Repo,
   database: "passwordless_auth_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :passwordless_auth, PasswordlessAuthWeb.Mailer,
+  # adapter: Swoosh.Adapters.Mailgun,
+  adapter: Swoosh.Adapters.Local,
+  domain: "sandbox-your-domain.mailgun.org",
+  api_key: "your-key",
+  from_address: {"passwordless_auth", "hello@passwordless-auth.com"}

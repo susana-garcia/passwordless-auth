@@ -58,3 +58,12 @@ config :passwordless_auth, PasswordlessAuth.Repo,
   database: "passwordless_auth_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :passwordless_auth, PasswordlessAuthWeb.Mailer,
+  # adapter: Swoosh.Adapters.Mailgun,
+  adapter: Swoosh.Adapters.Local,
+  # TODO: add your sandbox domain here
+  domain: "sandbox-your-domain.mailgun.org",
+  # TODO: add your api key here
+  api_key: "your-key",
+  from_address: {"passwordless_auth", "hello@passwordless-auth.com"}

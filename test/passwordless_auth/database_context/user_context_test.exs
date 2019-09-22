@@ -11,15 +11,6 @@ defmodule PasswordlessAuth.DatabaseContext.UserContextTest do
     @update_attrs %{email: "some_updated_email@test.com"}
     @invalid_attrs %{email: nil}
 
-    def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> UserContext.create_user()
-
-      user
-    end
-
     test "list_user/0 returns all user" do
       user = user_fixture()
       assert UserContext.list_user() == [user]

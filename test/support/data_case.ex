@@ -23,6 +23,7 @@ defmodule PasswordlessAuth.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import PasswordlessAuth.DataCase
+      import PasswordlessAuth.Fixtures
     end
   end
 
