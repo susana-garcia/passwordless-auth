@@ -14,6 +14,7 @@ defmodule PasswordlessAuth.Application do
       PasswordlessAuthWeb.Endpoint,
       # Starts a worker by calling: PasswordlessAuth.Worker.start_link(arg)
       # {PasswordlessAuth.Worker, arg},
+      PasswordlessAuth.Scheduler,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

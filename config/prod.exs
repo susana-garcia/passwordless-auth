@@ -74,3 +74,9 @@ config :passwordless_auth, PasswordlessAuthWeb.Mailer,
   domain: System.get_env("MAILGUN_DOMAIN"),
   api_key: System.get_env("MAILGUN_API_KEY"),
   from_address: {"passwordless_auth", "hello@passwordless-auth.com"}
+
+config :passwordless_auth, PasswordlessAuth.Scheduler,
+  jobs: [
+    # every midnight
+    {"@daily", {PasswordlessAuth.Jobs.CleanUpExpiredAuthTokens, :delete, []}}
+  ]

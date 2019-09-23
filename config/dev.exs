@@ -70,3 +70,9 @@ config :passwordless_auth, PasswordlessAuthWeb.Mailer,
   # TODO: add your api key here
   api_key: "your-key",
   from_address: {"passwordless_auth", "hello@passwordless-auth.com"}
+
+config :passwordless_auth, PasswordlessAuth.Scheduler,
+  jobs: [
+    # every 5 min
+    {"*/5 * * * *", {PasswordlessAuth.Jobs.CleanUpExpiredAuthTokens, :delete, []}}
+  ]

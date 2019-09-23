@@ -41,6 +41,16 @@ defmodule PasswordlessAuth.DatabaseContext.UserAuth do
     )
   end
 
+  def get_old_tokens(queryable \\ __MODULE__) do
+    valid_date =
+      NaiveDateTime.add(NaiveDateTime.utc_now(), -max_age_auth_token_in_seconds(), :second)
+
+    from(
+      q in queryable,
+      where: q.updated_at < ^valid_date
+    )
+  end
+
   defp max_age_auth_token_in_seconds,
   do:
     :passwordless_auth

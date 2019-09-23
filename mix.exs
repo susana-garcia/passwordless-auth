@@ -63,8 +63,10 @@ defmodule PasswordlessAuth.MixProject do
       {:cors_plug, "~> 2.0"},
       {:email_checker, "~> 0.1"},
       {:joken, "~> 2.1"},
-      {:swoosh, "~> 0.23.1"},
-      {:phoenix_swoosh, "~> 0.2.0"},
+      {:swoosh, "~> 0.23"},
+      {:phoenix_swoosh, "~> 0.2"},
+      {:quantum, "~> 2.3"},
+      {:timex, "~> 3.0"},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0-rc", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.4", only: [:dev, :test], runtime: false}
