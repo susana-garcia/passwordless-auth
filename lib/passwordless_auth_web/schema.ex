@@ -8,6 +8,7 @@ defmodule PasswordlessAuthWeb.Schema do
   use ApolloTracing
 
   alias PasswordlessAuthWeb.Schema.Resolvers.AuthResolver
+  alias PasswordlessAuthWeb.Schema.Resolvers.UserResolver
 
   import_types(__MODULE__.Scalar.UUID)
 
@@ -56,6 +57,13 @@ defmodule PasswordlessAuthWeb.Schema do
     field(:token, non_null(:string))
   end
 
+  @desc """
+  User input object
+  """
+  input_object :input do
+    field(:name, :string)
+  end
+
   mutation do
     @desc """
     Sign up
@@ -82,6 +90,15 @@ defmodule PasswordlessAuthWeb.Schema do
       arg(:input, non_null(:confirm_auth_input))
 
       resolve(&AuthResolver.confim/3)
+    end
+
+    @desc """
+    Update user (only for sign in users)
+    """
+    field :update_user, :user do
+      arg(:input, non_null(:input))
+
+      resolve(&UserResolver.update_user/3)
     end
   end
 end
