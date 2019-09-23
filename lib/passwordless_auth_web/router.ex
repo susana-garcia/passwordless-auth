@@ -3,6 +3,7 @@ defmodule PasswordlessAuthWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug PasswordlessAuthWeb.Plug.Auth
   end
 
   if Mix.env() == :dev do
@@ -10,15 +11,18 @@ defmodule PasswordlessAuthWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview, base_path: "/dev/mailbox"
     end
 
-    forward(
-      "/graphiql",
-      Absinthe.Plug.GraphiQL,
-      schema: PasswordlessAuthWeb.Schema,
-      socket: PasswordlessAuth.UserSocket,
-      pipeline: {ApolloTracing.Pipeline, :plug},
-      interface: :playground,
-      init_opts: [json_codec: Jason]
-    )
+    scope "/" do
+      pipe_through :api
+        forward(
+          "/graphiql",
+          Absinthe.Plug.GraphiQL,
+          schema: PasswordlessAuthWeb.Schema,
+          socket: PasswordlessAuth.UserSocket,
+          pipeline: {ApolloTracing.Pipeline, :plug},
+          interface: :playground,
+          init_opts: [json_codec: Jason]
+        )
+    end
   end
 
   scope "/" do
